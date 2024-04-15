@@ -13,4 +13,5 @@ const MovieList = ({ movie }) => {
     </ul>
   );
 };
+
 export default MovieList;

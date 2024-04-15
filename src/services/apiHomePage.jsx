@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const fetchMovies = async () => {
   const options = {
     headers: {
@@ -11,6 +12,6 @@ export const fetchMovies = async () => {
     `https://api.themoviedb.org/3/trending/movie/day`,
     options
   );
-  const results = data;
-  return results;
+
+  return data;
 };
