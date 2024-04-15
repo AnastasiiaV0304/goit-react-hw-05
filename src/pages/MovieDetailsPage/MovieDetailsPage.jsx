@@ -1,14 +1,14 @@
+import { useLocation, useParams, Link, Routes, Route } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import { fetchMovieDetails } from "../../services/apiMovieDetails";
 import MovieCast from "../../components/MovieCast/MovieCast";
 import MovieReviews from "../../components/MovieReviews/MovieReviews";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import css from "../MovieDetailsPage/MovieDetailsPage.module.css";
-import { Link, Routes, Route } from "react-router-dom";
 
-export default function MovieDetailsPage() {
+function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const location = useLocation();
+  const backLinkRef = useRef(location.state ?? "/");
 
   useEffect(() => {
     async function fetchMovies() {
@@ -16,7 +16,8 @@ export default function MovieDetailsPage() {
         const response = await fetchMovieDetails(movieId);
         setMovieDetails(response);
       } catch (error) {
-        console.log(error);
+        // Display error message to the user
+        console.error("Error fetching movie details:", error);
       }
     }
     fetchMovies();
@@ -25,12 +26,14 @@ export default function MovieDetailsPage() {
   return (
     movieDetails && (
       <div>
-        <Link to="/">Go Back</Link>
-        <div className={css.flex}>
+        <Link to={backLinkRef.current}>Go back</Link>
+        <div>
           <div>
             <img
-              src={`https://image.tmdb.org/t/p/${movieDetails.poster_path}`}
+              src={`https://image.tmdb.org/t/p/w500/${movieDetails.poster_path}`}
               alt={movieDetails.title}
+              width="200"
+              height="300"
             />
           </div>
           <div>
@@ -40,18 +43,18 @@ export default function MovieDetailsPage() {
             <h2>Overview: </h2>
             <p>{movieDetails.overview}</p>
             <br></br>
-            <h2>Genres: </h2>
+            <h2>Genres:</h2>
             <p>{movieDetails.genres.map((genre) => genre.name).join(", ")}</p>
           </div>
         </div>
         <div>
-          <h2>Additional information: </h2>
+          <h2>Additional information:</h2>
           <ul>
             <li>
-              <Link to="cast">Cast</Link>
+              <Link to={`/movies/${movieId}/cast`}>Cast</Link>
             </li>
             <li>
-              <Link to="reviews">Reviews</Link>
+              <Link to={`/movies/${movieId}/reviews`}>Reviews</Link>
             </li>
           </ul>
           <Routes>
@@ -63,3 +66,5 @@ export default function MovieDetailsPage() {
     )
   );
 }
+
+export default MovieDetailsPage;

@@ -13,3 +13,5 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+// realising via useEffect in ../../components/hooks/useTrandMovies
