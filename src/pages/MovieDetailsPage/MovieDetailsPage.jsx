@@ -14,14 +14,13 @@ export default function MovieDetailsPage() {
     async function fetchMovies() {
       try {
         const response = await fetchMovieDetails(movieId);
-
         setMovieDetails(response);
       } catch (error) {
         console.log(error);
       }
     }
     fetchMovies();
-  }, [movieDetails, movieId]);
+  }, [movieId]);
 
   return (
     movieDetails && (

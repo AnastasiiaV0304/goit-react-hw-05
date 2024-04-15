@@ -5,18 +5,19 @@ import { useParams } from "react-router-dom";
 function MovieReviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+
   useEffect(() => {
     async function fetchReviews() {
       try {
         const response = await fetchMovieReviews(movieId);
-
         setReviews(response.results);
       } catch (error) {
         console.log(error);
       }
     }
     fetchReviews();
-  }, [movieId, reviews]);
+  }, [movieId]); // Видалено reviews зі списку залежностей
+
   if (reviews.length !== 0) {
     return (
       <ul>

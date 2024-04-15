@@ -16,7 +16,7 @@ function MovieCast() {
       }
     }
     fetchCast();
-  }, [casts, movieId]);
+  }, [movieId]);
 
   return (
     casts !== null && (

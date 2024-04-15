@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchMovies } from "../../services/apiHomePage";
 
-export const useTrandMovies = () => {
+export const useTrendingMovies = () => {
   const [films, setfilms] = useState([]);
   useEffect(() => {
-    async function fetchTrandMovies() {
+    async function fetchTrendingMovies() {
       try {
         const response = await fetchMovies();
         setfilms(response.results);
@@ -12,7 +12,7 @@ export const useTrandMovies = () => {
         console.log(error);
       }
     }
-    fetchTrandMovies();
+    fetchTrendingMovies();
   }, []);
   return films;
 };
