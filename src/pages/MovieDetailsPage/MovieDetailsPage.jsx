@@ -16,7 +16,6 @@ function MovieDetailsPage() {
         const response = await fetchMovieDetails(movieId);
         setMovieDetails(response);
       } catch (error) {
-        // Display error message to the user
         console.error("Error fetching movie details:", error);
       }
     }
